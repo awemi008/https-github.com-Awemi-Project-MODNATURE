@@ -170,15 +170,18 @@ backend:
 
   - task: "Ethical Scenarios & Decision System"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented ethical scenario management and user decision tracking system"
+      - working: true
+        agent: "testing"
+        comment: "Ethical scenarios system is working correctly. Get all scenarios, get specific scenario, submit ethical decision, and get user ethical decisions endpoints are functioning properly. Sample ethical scenario data is properly initialized."
 
   - task: "ChatGPT-4o AI Integration"
     implemented: true

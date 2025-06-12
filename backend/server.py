@@ -210,8 +210,7 @@ async def get_users(skip: int = 0, limit: int = 100):
 @api_router.post("/users", response_model=User)
 async def create_user(user_data: UserCreate):
     user = User(**user_data.dict())
-    result = await db.users.insert_one(user.dict())
-    user.id = str(result.inserted_id)
+    await db.users.insert_one(user.dict())
     return user
 
 @api_router.get("/users/{user_id}", response_model=User)

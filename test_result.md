@@ -155,15 +155,18 @@ backend:
 
   - task: "Simulation System Backend"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Built simulation management system with user simulation tracking and gene expression data"
+      - working: true
+        agent: "testing"
+        comment: "Simulation system is working correctly. Get all simulations, get specific simulation, start user simulation, and get user simulations endpoints are functioning properly. Sample simulation data is properly initialized."
 
   - task: "Ethical Scenarios & Decision System"
     implemented: true

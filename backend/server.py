@@ -215,9 +215,18 @@ async def create_user(user_data: UserCreate):
 
 @api_router.get("/users/{user_id}", response_model=User)
 async def get_user(user_id: str):
+    # Try to find by UUID first
     user = await db.users.find_one({"id": user_id})
     if not user:
+        # If not found, try by MongoDB _id
+        try:
+            user = await db.users.find_one({"_id": user_id})
+        except:
+            pass
+    
+    if not user:
         raise HTTPException(status_code=404, detail="User not found")
+    
     return serialize_doc(user)
 
 @api_router.put("/users/{user_id}", response_model=User)
@@ -225,15 +234,34 @@ async def update_user(user_id: str, user_data: UserUpdate):
     update_data = {k: v for k, v in user_data.dict().items() if v is not None}
     update_data['updated_at'] = datetime.utcnow()
     
+    # Try to update by UUID first
     result = await db.users.update_one(
         {"id": user_id},
         {"$set": update_data}
     )
     
     if result.matched_count == 0:
+        # If not found, try by MongoDB _id
+        try:
+            result = await db.users.update_one(
+                {"_id": user_id},
+                {"$set": update_data}
+            )
+        except:
+            pass
+    
+    if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     
+    # Try to find by UUID first
     user = await db.users.find_one({"id": user_id})
+    if not user:
+        # If not found, try by MongoDB _id
+        try:
+            user = await db.users.find_one({"_id": user_id})
+        except:
+            pass
+    
     return serialize_doc(user)
 
 # Lesson Management

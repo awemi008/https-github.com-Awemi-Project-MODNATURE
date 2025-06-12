@@ -202,6 +202,11 @@ def serialize_doc(doc):
     return None
 
 # User Management Endpoints
+@api_router.get("/users", response_model=List[User])
+async def get_users(skip: int = 0, limit: int = 100):
+    users = await db.users.find().skip(skip).limit(limit).to_list(limit)
+    return [serialize_doc(user) for user in users]
+
 @api_router.post("/users", response_model=User)
 async def create_user(user_data: UserCreate):
     user = User(**user_data.dict())

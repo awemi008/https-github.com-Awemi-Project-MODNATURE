@@ -185,15 +185,18 @@ backend:
 
   - task: "ChatGPT-4o AI Integration"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Integrated ChatGPT-4o using emergentintegrations library with session management, conversation history, and expert biology tutor system message. Added fallback error handling."
+      - working: true
+        agent: "testing"
+        comment: "ChatGPT-4o AI integration is working correctly. Create chat session, send chat message, and get chat history endpoints are functioning properly. The AI is generating meaningful responses about gene editing and climate adaptation. Conversation continuity is maintained across messages. Note: There are occasional 429 Too Many Requests errors from OpenAI API, but the fallback error handling is working correctly."
 
   - task: "Project Management System"
     implemented: true

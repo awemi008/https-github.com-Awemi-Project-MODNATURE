@@ -56,7 +56,10 @@ def test_api_health():
     
     # Test root endpoint
     try:
-        response = requests.get(f"{API_URL}/")
+        print(f"Trying to connect to {API_URL}/")
+        response = requests.get(f"{API_URL}/", timeout=10)
+        print(f"Response status code: {response.status_code}")
+        print(f"Response content: {response.text}")
         log_test(
             "API Root Endpoint", 
             response.status_code == 200 and "message" in response.json(),
@@ -67,7 +70,10 @@ def test_api_health():
     
     # Test health endpoint
     try:
-        response = requests.get(f"{API_URL}/health")
+        print(f"Trying to connect to {API_URL}/health")
+        response = requests.get(f"{API_URL}/health", timeout=10)
+        print(f"Response status code: {response.status_code}")
+        print(f"Response content: {response.text}")
         log_test(
             "API Health Endpoint", 
             response.status_code == 200 and response.json().get("status") == "healthy",

@@ -954,40 +954,1281 @@ async def initialize_sample_data():
     # Check if we already have data
     lesson_count = await db.lessons.count_documents({})
     if lesson_count == 0:
-        # Add sample lessons
-        sample_lessons = [
+        # Add comprehensive lesson data
+        comprehensive_lessons = [
             {
                 "id": "1",
                 "title": "Introduction to Gene Editing",
-                "description": "Understanding CRISPR, gene therapy, and modern biotechnology",
+                "description": "Understanding CRISPR, gene therapy, and modern biotechnology fundamentals",
                 "duration": "45 min",
                 "difficulty": "Intermediate",
-                "topics": ["CRISPR-Cas9", "Gene therapy", "Biotechnology basics"],
+                "topics": ["CRISPR-Cas9", "Gene therapy", "Biotechnology basics", "DNA structure", "Protein synthesis"],
                 "content": {
+                    "overview": "Gene editing represents one of the most revolutionary advances in modern biology, offering unprecedented precision in modifying genetic material. This lesson introduces the fundamental concepts and technologies that make precise genetic modifications possible.",
+                    "learning_objectives": [
+                        "Understand the basic principles of gene editing technology",
+                        "Learn how CRISPR-Cas9 system works at the molecular level",
+                        "Identify different types of gene editing approaches",
+                        "Recognize real-world applications of gene editing",
+                        "Evaluate the potential and limitations of current technologies"
+                    ],
                     "sections": [
-                        {"title": "CRISPR Basics", "content": "Introduction to CRISPR technology"},
-                        {"title": "Applications", "content": "Real-world applications of gene editing"}
+                        {
+                            "id": 1,
+                            "title": "Introduction & DNA Fundamentals",
+                            "duration": "10 min",
+                            "type": "theory",
+                            "content": {
+                                "text": "DNA (Deoxyribonucleic acid) is the blueprint of life, containing instructions for building and maintaining every living organism. Understanding DNA structure is crucial for comprehending how gene editing works.",
+                                "key_points": [
+                                    "DNA consists of four nucleotide bases: A, T, G, C",
+                                    "Genes are specific sequences of DNA that code for proteins",
+                                    "Mutations in genes can cause diseases or beneficial traits",
+                                    "Gene editing allows us to make precise changes to DNA sequences"
+                                ],
+                                "interactive_elements": [
+                                    {
+                                        "type": "visualization",
+                                        "title": "DNA Double Helix Structure",
+                                        "description": "Explore the 3D structure of DNA and how bases pair together"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "CRISPR-Cas9 Mechanism",
+                            "duration": "15 min",
+                            "type": "interactive",
+                            "content": {
+                                "text": "CRISPR-Cas9 is like molecular scissors guided by GPS. It consists of two main components: a guide RNA (gRNA) that recognizes the target DNA sequence, and the Cas9 protein that cuts the DNA.",
+                                "key_points": [
+                                    "CRISPR stands for Clustered Regularly Interspaced Short Palindromic Repeats",
+                                    "Guide RNA directs Cas9 to the specific DNA location",
+                                    "Cas9 creates a double-strand break in the DNA",
+                                    "Cell's repair mechanisms can introduce desired changes",
+                                    "Process is highly specific and efficient"
+                                ],
+                                "interactive_elements": [
+                                    {
+                                        "type": "step_by_step",
+                                        "title": "CRISPR Editing Process",
+                                        "steps": [
+                                            "Design guide RNA complementary to target sequence",
+                                            "Deliver CRISPR components into cells",
+                                            "Guide RNA finds matching DNA sequence",
+                                            "Cas9 cuts both strands of DNA",
+                                            "Cell repairs the break, incorporating changes"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "title": "Types of Gene Editing",
+                            "duration": "12 min",
+                            "type": "comparison",
+                            "content": {
+                                "text": "Various gene editing techniques offer different advantages for specific applications. Understanding these differences helps choose the right tool for each task.",
+                                "comparison_table": [
+                                    {
+                                        "technique": "CRISPR-Cas9",
+                                        "precision": "High",
+                                        "ease_of_use": "Easy",
+                                        "cost": "Low",
+                                        "applications": "Research, therapeutics, agriculture"
+                                    },
+                                    {
+                                        "technique": "TALENs",
+                                        "precision": "Very High",
+                                        "ease_of_use": "Moderate",
+                                        "cost": "Medium",
+                                        "applications": "Therapeutics, precise edits"
+                                    },
+                                    {
+                                        "technique": "Zinc Finger Nucleases",
+                                        "precision": "High",
+                                        "ease_of_use": "Difficult",
+                                        "cost": "High",
+                                        "applications": "Early therapeutics"
+                                    },
+                                    {
+                                        "technique": "Base Editing",
+                                        "precision": "Very High",
+                                        "ease_of_use": "Moderate",
+                                        "cost": "Medium",
+                                        "applications": "Single nucleotide changes"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "title": "Real-World Applications",
+                            "duration": "8 min",
+                            "type": "case_studies",
+                            "content": {
+                                "text": "Gene editing is already making significant impacts in medicine, agriculture, and research. These real-world applications demonstrate the transformative potential of the technology.",
+                                "case_studies": [
+                                    {
+                                        "title": "Sickle Cell Disease Treatment",
+                                        "description": "CRISPR therapy successfully treats patients by editing their own blood cells to produce healthy hemoglobin",
+                                        "outcome": "Clinical trials show 95% reduction in pain crises",
+                                        "significance": "First successful gene editing cure for genetic disease"
+                                    },
+                                    {
+                                        "title": "Drought-Resistant Crops",
+                                        "description": "Scientists engineer crops to survive with less water by modifying genes controlling water retention",
+                                        "outcome": "30-40% reduction in water needs while maintaining yield",
+                                        "significance": "Critical for feeding population amid climate change"
+                                    },
+                                    {
+                                        "title": "Disease-Resistant Livestock",
+                                        "description": "Gene editing creates pigs resistant to deadly diseases without using antibiotics",
+                                        "outcome": "Complete resistance to PRRS virus in pigs",
+                                        "significance": "Reduces antibiotic use and improves animal welfare"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "quiz": [
+                        {
+                            "question": "What are the two main components of the CRISPR-Cas9 system?",
+                            "options": [
+                                "Guide RNA and Cas9 protein",
+                                "DNA and protein",
+                                "Nucleotides and enzymes",
+                                "Genes and chromosomes"
+                            ],
+                            "correct": 0,
+                            "explanation": "CRISPR-Cas9 consists of guide RNA (which finds the target) and Cas9 protein (which cuts the DNA)."
+                        },
+                        {
+                            "question": "Which gene editing technique is currently the most widely used?",
+                            "options": [
+                                "Zinc Finger Nucleases",
+                                "TALENs",
+                                "CRISPR-Cas9",
+                                "Base editing"
+                            ],
+                            "correct": 2,
+                            "explanation": "CRISPR-Cas9 is the most widely used due to its ease of use, low cost, and high efficiency."
+                        }
+                    ],
+                    "additional_resources": [
+                        {
+                            "title": "CRISPR Animation by Nature",
+                            "type": "video",
+                            "url": "https://www.youtube.com/watch?v=2pp17E4E-O8",
+                            "description": "Professional animation showing CRISPR mechanism"
+                        },
+                        {
+                            "title": "The CRISPR Foundation",
+                            "type": "website",
+                            "url": "https://crisprtx.com/gene-editing/crispr-cas9",
+                            "description": "Comprehensive resource on CRISPR technology"
+                        }
                     ]
                 },
                 "created_at": datetime.utcnow()
             },
             {
-                "id": "2", 
-                "title": "Climate Change & Genetic Adaptation",
-                "description": "How organisms adapt genetically to environmental changes",
+                "id": "2",
+                "title": "Climate Change & Genetic Adaptation", 
+                "description": "How organisms adapt genetically to environmental changes and the role of human intervention",
                 "duration": "60 min",
                 "difficulty": "Advanced",
-                "topics": ["Climate adaptation", "Natural selection", "Genetic variation"],
+                "topics": ["Climate adaptation", "Natural selection", "Genetic variation", "Evolutionary pressure", "Assisted evolution"],
                 "content": {
+                    "overview": "Climate change is creating unprecedented environmental pressures that require rapid adaptation. This lesson explores how genetic mechanisms enable organisms to survive changing conditions and how we can assist this process.",
+                    "learning_objectives": [
+                        "Understand the relationship between genetics and climate adaptation",
+                        "Learn how natural selection drives genetic changes",
+                        "Identify key genes involved in environmental adaptation",
+                        "Evaluate strategies for assisted evolution",
+                        "Analyze case studies of climate adaptation in nature"
+                    ],
                     "sections": [
-                        {"title": "Climate Pressures", "content": "Understanding environmental pressures"},
-                        {"title": "Genetic Responses", "content": "How genes respond to climate change"}
+                        {
+                            "id": 1,
+                            "title": "Climate Change Challenges",
+                            "duration": "12 min",
+                            "type": "data_analysis",
+                            "content": {
+                                "text": "Climate change is happening faster than natural adaptation can occur. Rising temperatures, changing precipitation patterns, and extreme weather events create survival challenges for all life forms.",
+                                "key_statistics": [
+                                    "Global temperature has risen 1.1°C since 1880",
+                                    "Arctic warming is occurring twice as fast as global average",
+                                    "Precipitation patterns have shifted dramatically in 60% of regions",
+                                    "Extreme weather events have increased 5x since 1970s"
+                                ],
+                                "climate_impacts": [
+                                    {
+                                        "factor": "Temperature",
+                                        "change": "+1.1°C average, up to +4°C projected",
+                                        "biological_impact": "Protein denaturation, metabolic stress, habitat shifts"
+                                    },
+                                    {
+                                        "factor": "Precipitation",
+                                        "change": "±30% in many regions",
+                                        "biological_impact": "Water stress, drought, flooding adaptations needed"
+                                    },
+                                    {
+                                        "factor": "Ocean pH",
+                                        "change": "-0.1 pH units (30% more acidic)",
+                                        "biological_impact": "Shell formation problems, coral bleaching"
+                                    },
+                                    {
+                                        "factor": "Sea Level",
+                                        "change": "+20cm, up to +1m projected",
+                                        "biological_impact": "Habitat loss, saltwater intrusion"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "Genetic Basis of Adaptation",
+                            "duration": "18 min",
+                            "type": "molecular_biology",
+                            "content": {
+                                "text": "Adaptation occurs through changes in gene expression and DNA sequences that improve survival in new conditions. Understanding these mechanisms helps us predict and assist adaptation.",
+                                "adaptation_mechanisms": [
+                                    {
+                                        "type": "Gene Expression Changes",
+                                        "description": "Existing genes are turned on/off or produce more/less protein",
+                                        "time_scale": "Immediate to generational",
+                                        "examples": ["Heat shock protein upregulation", "Stress hormone production"]
+                                    },
+                                    {
+                                        "type": "Epigenetic Modifications", 
+                                        "description": "Chemical marks on DNA that change gene activity without changing sequence",
+                                        "time_scale": "Rapid, sometimes heritable",
+                                        "examples": ["DNA methylation", "Histone modifications"]
+                                    },
+                                    {
+                                        "type": "Genetic Mutations",
+                                        "description": "Permanent changes in DNA sequence that may provide advantages",
+                                        "time_scale": "Generational to evolutionary",
+                                        "examples": ["Lactose tolerance", "High-altitude adaptations"]
+                                    },
+                                    {
+                                        "type": "Gene Flow",
+                                        "description": "Movement of beneficial alleles between populations",
+                                        "time_scale": "Generational",
+                                        "examples": ["Hybridization", "Migration"]
+                                    }
+                                ],
+                                "key_adaptation_genes": [
+                                    {
+                                        "gene": "HSP70",
+                                        "function": "Heat shock protection",
+                                        "adaptation": "Temperature tolerance",
+                                        "found_in": "All organisms"
+                                    },
+                                    {
+                                        "gene": "DREB2",
+                                        "function": "Drought response",
+                                        "adaptation": "Water stress tolerance",
+                                        "found_in": "Plants"
+                                    },
+                                    {
+                                        "gene": "EPAS1",
+                                        "function": "Oxygen regulation",
+                                        "adaptation": "High altitude tolerance",
+                                        "found_in": "Mammals"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "title": "Natural Examples of Climate Adaptation",
+                            "duration": "15 min",
+                            "type": "case_studies",
+                            "content": {
+                                "text": "Nature provides numerous examples of rapid genetic adaptation to climate change, offering insights for human-assisted approaches.",
+                                "case_studies": [
+                                    {
+                                        "species": "Tibetan People",
+                                        "adaptation": "High-altitude breathing",
+                                        "genetic_change": "EPAS1 and EGLN1 gene variants",
+                                        "time_frame": "3,000 years",
+                                        "mechanism": "Improved oxygen utilization at low pressure",
+                                        "lesson": "Rapid human evolution is possible with strong selection"
+                                    },
+                                    {
+                                        "species": "Arctic Foxes",
+                                        "adaptation": "Seasonal coat changes",
+                                        "genetic_change": "MC1R and ASIP gene regulation",
+                                        "time_frame": "10,000 years",
+                                        "mechanism": "Photoperiod-controlled pigmentation",
+                                        "lesson": "Environmental cues can trigger adaptive responses"
+                                    },
+                                    {
+                                        "species": "Resurrection Plants",
+                                        "adaptation": "Extreme desiccation tolerance",
+                                        "genetic_change": "LEA proteins and trehalose synthesis",
+                                        "time_frame": "Millions of years",
+                                        "mechanism": "Cellular protection during dehydration",
+                                        "lesson": "Multiple genetic systems work together"
+                                    },
+                                    {
+                                        "species": "Coral Reefs",
+                                        "adaptation": "Heat and acid tolerance",
+                                        "genetic_change": "Symbiodiniaceae partner switching",
+                                        "time_frame": "Decades",
+                                        "mechanism": "More thermotolerant algal symbionts",
+                                        "lesson": "Adaptation can involve partner organisms"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "title": "Assisted Evolution Strategies",
+                            "duration": "15 min",
+                            "type": "strategic_planning",
+                            "content": {
+                                "text": "Human intervention can accelerate adaptation beyond natural rates, helping organisms survive rapid climate change.",
+                                "strategies": [
+                                    {
+                                        "approach": "Selective Breeding",
+                                        "description": "Choose individuals with beneficial traits for reproduction",
+                                        "pros": ["Safe", "Natural", "Proven effective"],
+                                        "cons": ["Slow", "Limited by existing variation"],
+                                        "applications": ["Crop improvement", "Livestock breeding"],
+                                        "success_rate": "High for available traits"
+                                    },
+                                    {
+                                        "approach": "Assisted Gene Flow",
+                                        "description": "Move individuals with adaptive genes between populations",
+                                        "pros": ["Increases genetic diversity", "Relatively natural"],
+                                        "cons": ["May disrupt local adaptations", "Logistically complex"],
+                                        "applications": ["Forest management", "Wildlife conservation"],
+                                        "success_rate": "Moderate, requires careful management"
+                                    },
+                                    {
+                                        "approach": "Genetic Engineering",
+                                        "description": "Directly introduce beneficial genes from other species",
+                                        "pros": ["Rapid", "Can add entirely new capabilities"],
+                                        "cons": ["Regulatory hurdles", "Public acceptance issues"],
+                                        "applications": ["Crop engineering", "Conservation biology"],
+                                        "success_rate": "High for single traits"
+                                    },
+                                    {
+                                        "approach": "Microbiome Engineering",
+                                        "description": "Modify associated microorganisms to help hosts adapt",
+                                        "pros": ["Rapid deployment", "Environmentally friendly"],
+                                        "cons": ["Complex interactions", "Stability concerns"],
+                                        "applications": ["Coral reef restoration", "Plant disease resistance"],
+                                        "success_rate": "Emerging, promising results"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "quiz": [
+                        {
+                            "question": "Which genetic mechanism allows the fastest response to environmental change?",
+                            "options": [
+                                "DNA mutations",
+                                "Gene expression changes",
+                                "Chromosomal rearrangements",
+                                "Gene duplications"
+                            ],
+                            "correct": 1,
+                            "explanation": "Gene expression changes can occur immediately in response to environmental signals, while mutations take generations to spread."
+                        },
+                        {
+                            "question": "What is the main advantage of assisted gene flow over genetic engineering?",
+                            "options": [
+                                "It's faster",
+                                "It's more precise",
+                                "It uses naturally occurring genetic variation",
+                                "It's cheaper"
+                            ],
+                            "correct": 2,
+                            "explanation": "Assisted gene flow moves existing natural genetic variants between populations, avoiding the need to create artificial modifications."
+                        }
+                    ],
+                    "additional_resources": [
+                        {
+                            "title": "Climate Change and Evolution - Nature",
+                            "type": "scientific_article",
+                            "description": "Comprehensive review of evolutionary responses to climate change"
+                        },
+                        {
+                            "title": "Assisted Evolution of Corals",
+                            "type": "research_project",
+                            "description": "Australian Institute of Marine Science project on coral adaptation"
+                        }
+                    ]
+                },
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": "3",
+                "title": "Drought-Resistant Crops",
+                "description": "Engineering plants to survive water scarcity through genetic modifications",
+                "duration": "50 min",
+                "difficulty": "Advanced",
+                "topics": ["Crop modification", "Water stress response", "Agricultural biotechnology", "Plant physiology", "Sustainable agriculture"],
+                "content": {
+                    "overview": "Water scarcity affects 2 billion people globally and is worsening with climate change. Engineering drought-resistant crops is essential for food security and sustainable agriculture in the 21st century.",
+                    "learning_objectives": [
+                        "Understand plant water stress responses at molecular level",
+                        "Learn genetic targets for drought resistance engineering",
+                        "Analyze successful crop modification examples",
+                        "Evaluate trade-offs between drought tolerance and yield",
+                        "Design strategies for sustainable drought-resistant agriculture"
+                    ],
+                    "sections": [
+                        {
+                            "id": 1,
+                            "title": "Plant Water Stress Biology",
+                            "duration": "15 min",
+                            "type": "plant_biology",
+                            "content": {
+                                "text": "Plants have evolved sophisticated mechanisms to sense, respond to, and survive water stress. Understanding these natural systems guides genetic engineering approaches.",
+                                "water_stress_responses": [
+                                    {
+                                        "level": "Cellular",
+                                        "responses": [
+                                            "Osmotic adjustment - accumulating solutes to maintain cell pressure",
+                                            "Membrane stabilization - protecting cell membranes from damage",
+                                            "Protein protection - producing protective proteins and sugars",
+                                            "Antioxidant production - preventing oxidative damage"
+                                        ]
+                                    },
+                                    {
+                                        "level": "Physiological",
+                                        "responses": [
+                                            "Stomatal closure - reducing water loss through leaf pores",
+                                            "Root growth - extending roots to find water",
+                                            "Leaf area reduction - minimizing surface area for water loss",
+                                            "Water storage - storing water in specialized tissues"
+                                        ]
+                                    },
+                                    {
+                                        "level": "Developmental",
+                                        "responses": [
+                                            "Early flowering - completing reproduction before stress peaks",
+                                            "Seed dormancy - waiting for better conditions",
+                                            "Alternative growth patterns - adapting structure to conserve water",
+                                            "Resource allocation - prioritizing survival over growth"
+                                        ]
+                                    }
+                                ],
+                                "key_signaling_pathways": [
+                                    {
+                                        "pathway": "ABA Signaling",
+                                        "trigger": "Water stress detection",
+                                        "response": "Stomatal closure, gene expression changes",
+                                        "key_genes": ["ABA1", "ABA2", "NCED3"]
+                                    },
+                                    {
+                                        "pathway": "DREB/CBF",
+                                        "trigger": "Dehydration stress",
+                                        "response": "Protective protein production",
+                                        "key_genes": ["DREB2A", "DREB2B", "CBF1-3"]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "Genetic Targets for Engineering",
+                            "duration": "18 min",
+                            "type": "genetic_engineering",
+                            "content": {
+                                "text": "Successful drought resistance engineering targets multiple pathways simultaneously, mimicking nature's multi-layered approach to water stress survival.",
+                                "target_categories": [
+                                    {
+                                        "category": "Water Uptake & Transport",
+                                        "description": "Improving plant's ability to find and move water",
+                                        "targets": [
+                                            {
+                                                "gene": "Aquaporins (PIP, TIP families)",
+                                                "function": "Water channel proteins",
+                                                "modification": "Overexpression increases water transport efficiency",
+                                                "impact": "15-25% better water uptake"
+                                            },
+                                            {
+                                                "gene": "Root development genes",
+                                                "function": "Root architecture control",
+                                                "modification": "Enhanced root branching and depth",
+                                                "impact": "30-50% larger root system"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "category": "Water Conservation",
+                                        "description": "Reducing water loss from plant tissues",
+                                        "targets": [
+                                            {
+                                                "gene": "Cuticular wax genes",
+                                                "function": "Waxy protective coating",
+                                                "modification": "Increased wax production",
+                                                "impact": "20-40% reduced water loss"
+                                            },
+                                            {
+                                                "gene": "Stomatal regulation genes",
+                                                "function": "Control of leaf pores",
+                                                "modification": "Improved closure sensitivity",
+                                                "impact": "10-30% better water use efficiency"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "category": "Cellular Protection",
+                                        "description": "Protecting cells from dehydration damage",
+                                        "targets": [
+                                            {
+                                                "gene": "LEA proteins",
+                                                "function": "Cellular protection during dehydration",
+                                                "modification": "Overexpression of multiple LEA genes",
+                                                "impact": "50-80% better survival of severe drought"
+                                            },
+                                            {
+                                                "gene": "Trehalose synthesis genes",
+                                                "function": "Protective sugar production",
+                                                "modification": "Enhanced trehalose accumulation",
+                                                "impact": "25-45% improved stress tolerance"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "title": "Success Stories in Drought Engineering",
+                            "duration": "12 min",
+                            "type": "case_studies",
+                            "content": {
+                                "text": "Several drought-resistant crops have been successfully developed and deployed, demonstrating the practical potential of genetic engineering approaches.",
+                                "success_stories": [
+                                    {
+                                        "crop": "DroughtGard Maize",
+                                        "developer": "Monsanto/Bayer",
+                                        "genes_used": ["CspB (from Bacillus subtilis)"],
+                                        "mechanism": "Cold shock protein protects cellular machinery",
+                                        "performance": "6-10% yield advantage under drought stress",
+                                        "adoption": "Planted on millions of acres in US",
+                                        "lessons": "Single gene can provide significant benefits"
+                                    },
+                                    {
+                                        "crop": "Water Efficient Maize for Africa (WEMA)",
+                                        "developer": "Public-private partnership",
+                                        "genes_used": ["Multiple drought tolerance genes"],
+                                        "mechanism": "Enhanced water use efficiency and stress tolerance",
+                                        "performance": "20-35% yield improvement under drought",
+                                        "adoption": "Released in Kenya, Uganda, Tanzania",
+                                        "lessons": "Gene stacking provides greater benefits"
+                                    },
+                                    {
+                                        "crop": "HB4 Soybeans",
+                                        "developer": "Bioceres",
+                                        "genes_used": ["HAHB-4 (from sunflower)"],
+                                        "mechanism": "Transcription factor regulating multiple stress genes",
+                                        "performance": "15-20% better yield under water stress",
+                                        "adoption": "Approved in Argentina, Paraguay",
+                                        "lessons": "Cross-species gene transfer can work well"
+                                    },
+                                    {
+                                        "crop": "C4 Rice Project",
+                                        "developer": "International Rice Research Institute",
+                                        "genes_used": ["C4 photosynthesis pathway genes"],
+                                        "mechanism": "More efficient photosynthesis reduces water needs",
+                                        "performance": "Target: 50% increase in water use efficiency",
+                                        "adoption": "Still in development",
+                                        "lessons": "Complex traits require sustained long-term effort"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "title": "Future Directions & Challenges",
+                            "duration": "5 min",
+                            "type": "future_outlook",
+                            "content": {
+                                "text": "Next-generation approaches promise even more effective drought resistance through advanced technologies and systems approaches.",
+                                "emerging_approaches": [
+                                    {
+                                        "approach": "Gene Editing (CRISPR)",
+                                        "description": "Precise modification of existing plant genes",
+                                        "advantages": ["No foreign DNA", "Precise targeting", "Faster development"],
+                                        "current_projects": ["Improved wheat WAXY gene", "Enhanced rice stomatal control"]
+                                    },
+                                    {
+                                        "approach": "Microbiome Engineering",
+                                        "description": "Modifying beneficial soil microbes",
+                                        "advantages": ["Environmentally friendly", "Rapid deployment", "Self-sustaining"],
+                                        "current_projects": ["Drought-protecting bacteria", "Mycorrhizal enhancement"]
+                                    },
+                                    {
+                                        "approach": "Synthetic Biology",
+                                        "description": "Designing entirely new biological systems",
+                                        "advantages": ["Unlimited possibilities", "Optimized pathways", "Multiple trait stacking"],
+                                        "current_projects": ["Synthetic drought circuits", "Bio-inspired water sensors"]
+                                    }
+                                ],
+                                "remaining_challenges": [
+                                    "Balancing drought tolerance with yield and nutrition",
+                                    "Ensuring stability across diverse environments",
+                                    "Regulatory approval for new technologies",
+                                    "Public acceptance and farmer adoption",
+                                    "Preventing pest adaptation to modified crops"
+                                ]
+                            }
+                        }
+                    ],
+                    "quiz": [
+                        {
+                            "question": "Which cellular response is most important for immediate drought survival?",
+                            "options": [
+                                "Root growth",
+                                "Osmotic adjustment",
+                                "Early flowering",
+                                "Leaf reduction"
+                            ],
+                            "correct": 1,
+                            "explanation": "Osmotic adjustment helps maintain cell pressure and function immediately when water becomes scarce, while other responses take longer to develop."
+                        },
+                        {
+                            "question": "What is the main advantage of using transcription factors like DREB2 in drought engineering?",
+                            "options": [
+                                "They control multiple downstream genes",
+                                "They work faster than other genes",
+                                "They use less energy",
+                                "They don't require regulatory approval"
+                            ],
+                            "correct": 0,
+                            "explanation": "Transcription factors like DREB2 regulate many genes simultaneously, providing coordinated drought responses rather than single improvements."
+                        }
+                    ],
+                    "additional_resources": [
+                        {
+                            "title": "Plant Stress Biology - Textbook Chapter",
+                            "type": "academic_text",
+                            "description": "Comprehensive coverage of plant responses to environmental stress"
+                        },
+                        {
+                            "title": "CGIAR Drought Research",
+                            "type": "research_organization",
+                            "description": "International agricultural research on drought-resistant crops"
+                        }
+                    ]
+                },
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": "4",
+                "title": "Heat-Tolerant Livestock",
+                "description": "Genetic modifications for temperature adaptation in farm animals",
+                "duration": "55 min", 
+                "difficulty": "Advanced",
+                "topics": ["Animal genetics", "Heat shock proteins", "Metabolic adaptation", "Thermoregulation", "Livestock breeding"],
+                "content": {
+                    "overview": "Rising global temperatures threaten livestock health and productivity. Understanding animal thermoregulation and applying genetic solutions can help ensure food security while improving animal welfare in a warming world.",
+                    "learning_objectives": [
+                        "Understand mammalian thermoregulation mechanisms",
+                        "Learn about heat stress impacts on livestock",
+                        "Identify genetic targets for heat tolerance",
+                        "Analyze successful breeding and genetic modification programs",
+                        "Evaluate ethical considerations in livestock genetic modification"
+                    ],
+                    "sections": [
+                        {
+                            "id": 1,
+                            "title": "Animal Thermoregulation Biology",
+                            "duration": "15 min",
+                            "type": "animal_physiology",
+                            "content": {
+                                "text": "Mammals maintain constant body temperature through sophisticated physiological and behavioral mechanisms. Understanding these systems is crucial for improving heat tolerance.",
+                                "thermoregulation_mechanisms": [
+                                    {
+                                        "type": "Physiological",
+                                        "mechanisms": [
+                                            {
+                                                "name": "Sweating/Panting",
+                                                "description": "Evaporative cooling through water loss",
+                                                "effectiveness": "High, but water-dependent",
+                                                "energy_cost": "Moderate"
+                                            },
+                                            {
+                                                "name": "Vasodilation",
+                                                "description": "Increased blood flow to skin surface",
+                                                "effectiveness": "Moderate",
+                                                "energy_cost": "Low"
+                                            },
+                                            {
+                                                "name": "Metabolic Adjustment",
+                                                "description": "Reduced heat-producing metabolic processes",
+                                                "effectiveness": "High, but affects performance",
+                                                "energy_cost": "Variable"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Behavioral",
+                                        "mechanisms": [
+                                            {
+                                                "name": "Shade Seeking",
+                                                "description": "Moving to cooler microenvironments",
+                                                "effectiveness": "High when available",
+                                                "energy_cost": "Low"
+                                            },
+                                            {
+                                                "name": "Activity Reduction",
+                                                "description": "Reducing heat-generating activities",
+                                                "effectiveness": "Moderate",
+                                                "energy_cost": "Opportunity cost"
+                                            },
+                                            {
+                                                "name": "Water Seeking",
+                                                "description": "Finding water for drinking and cooling",
+                                                "effectiveness": "Essential",
+                                                "energy_cost": "Travel cost"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "heat_stress_impacts": [
+                                    {
+                                        "system": "Reproductive",
+                                        "impacts": ["Reduced fertility", "Embryo loss", "Altered hormone cycles"],
+                                        "severity": "Severe - can stop reproduction entirely"
+                                    },
+                                    {
+                                        "system": "Production",
+                                        "impacts": ["Reduced milk yield", "Lower growth rates", "Poor feed conversion"],
+                                        "severity": "High - major economic impact"
+                                    },
+                                    {
+                                        "system": "Immune",
+                                        "impacts": ["Increased disease susceptibility", "Slower wound healing", "Vaccine failures"],
+                                        "severity": "Moderate to severe"
+                                    },
+                                    {
+                                        "system": "Metabolic",
+                                        "impacts": ["Cellular damage", "Protein denaturation", "Oxidative stress"],
+                                        "severity": "Progressive with temperature"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "Genetic Targets for Heat Tolerance",
+                            "duration": "20 min",
+                            "type": "molecular_genetics",
+                            "content": {
+                                "text": "Multiple genetic pathways control heat tolerance in animals. Successful improvement requires understanding which genes to target and how to modify them effectively.",
+                                "target_pathways": [
+                                    {
+                                        "pathway": "Heat Shock Response",
+                                        "description": "Cellular protection system activated by temperature stress",
+                                        "key_genes": [
+                                            {
+                                                "gene": "HSP70",
+                                                "function": "Protein folding and protection",
+                                                "modification_approach": "Overexpression or enhanced induction",
+                                                "expected_benefit": "20-30% better heat survival"
+                                            },
+                                            {
+                                                "gene": "HSP90",
+                                                "function": "Protein stabilization and signaling",
+                                                "modification_approach": "Improved stability and expression",
+                                                "expected_benefit": "Enhanced cellular stress response"
+                                            },
+                                            {
+                                                "gene": "HSF1",
+                                                "function": "Master regulator of heat shock response",
+                                                "modification_approach": "Enhanced sensitivity and activity",
+                                                "expected_benefit": "Faster and stronger heat response"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "pathway": "Thermoregulatory Control",
+                                        "description": "Neural and hormonal systems controlling body temperature",
+                                        "key_genes": [
+                                            {
+                                                "gene": "TRPV1",
+                                                "function": "Temperature sensing",
+                                                "modification_approach": "Enhanced sensitivity to heat",
+                                                "expected_benefit": "Earlier and more precise heat detection"
+                                            },
+                                            {
+                                                "gene": "SLICK",
+                                                "function": "Hair follicle development (short hair phenotype)",
+                                                "modification_approach": "Promote short hair coat",
+                                                "expected_benefit": "30-50% better heat dissipation"
+                                            },
+                                            {
+                                                "gene": "PRLR",
+                                                "function": "Prolactin receptor (affects hair growth)",
+                                                "modification_approach": "Modified for heat-adapted hair patterns",
+                                                "expected_benefit": "Improved coat characteristics"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "pathway": "Metabolic Adaptation",
+                                        "description": "Cellular metabolism adjustments for heat tolerance",
+                                        "key_genes": [
+                                            {
+                                                "gene": "UCP1",
+                                                "function": "Uncoupling protein (heat generation control)",
+                                                "modification_approach": "Reduced expression or activity",
+                                                "expected_benefit": "Lower internal heat production"
+                                            },
+                                            {
+                                                "gene": "PPARA",
+                                                "function": "Fat metabolism regulation",
+                                                "modification_approach": "Enhanced fat utilization",
+                                                "expected_benefit": "More efficient energy use"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "title": "Successful Heat Tolerance Programs",
+                            "duration": "15 min",
+                            "type": "breeding_programs",
+                            "content": {
+                                "text": "Both traditional breeding and modern genetic approaches have produced heat-tolerant livestock, providing models for future development.",
+                                "success_stories": [
+                                    {
+                                        "program": "Senepol Cattle",
+                                        "approach": "Traditional breeding",
+                                        "origin": "Caribbean (St. John Island)",
+                                        "key_traits": ["Short hair", "Efficient sweating", "Heat-adapted metabolism"],
+                                        "performance": "Maintains productivity in 35°C+ temperatures",
+                                        "adoption": "Worldwide in hot climates",
+                                        "lesson": "Natural adaptation can be leveraged through breeding"
+                                    },
+                                    {
+                                        "program": "Slick Gene in Holstein Cattle",
+                                        "approach": "Genetic marker selection",
+                                        "origin": "Puerto Rico Holstein population",
+                                        "key_traits": ["Very short hair coat", "Improved heat tolerance"],
+                                        "performance": "1-2°C lower body temperature in heat",
+                                        "adoption": "Spreading to hot climate dairy operations",
+                                        "lesson": "Single genes can have major effects"
+                                    },
+                                    {
+                                        "program": "Heat-Tolerant Pigs (China)",
+                                        "approach": "Genomic selection",
+                                        "origin": "Chinese local breeds + modern genetics",
+                                        "key_traits": ["Enhanced sweating", "Better feed efficiency in heat"],
+                                        "performance": "15-20% better growth in hot conditions",
+                                        "adoption": "Commercial use in Southern China",
+                                        "lesson": "Combining traditional and modern breeds works"
+                                    },
+                                    {
+                                        "program": "Gene-Edited Heat-Tolerant Cattle",
+                                        "approach": "CRISPR gene editing",
+                                        "origin": "University research programs",
+                                        "key_traits": ["Enhanced heat shock proteins", "Modified coat genes"],
+                                        "performance": "Experimental - showing promising results",
+                                        "adoption": "Still in development/regulatory review",
+                                        "lesson": "Gene editing offers precision improvements"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "title": "Ethical Considerations & Future Directions",
+                            "duration": "5 min",
+                            "type": "ethics_and_future",
+                            "content": {
+                                "text": "Genetic modification of livestock raises important ethical questions about animal welfare, food safety, and environmental impact that must be carefully considered.",
+                                "ethical_considerations": [
+                                    {
+                                        "category": "Animal Welfare",
+                                        "considerations": [
+                                            "Do modifications improve overall animal comfort?",
+                                            "Are there unintended health consequences?",
+                                            "How do we balance productivity with natural behavior?"
+                                        ],
+                                        "current_consensus": "Modifications that reduce suffering are generally supported"
+                                    },
+                                    {
+                                        "category": "Food Safety",
+                                        "considerations": [
+                                            "Are products from modified animals safe to consume?",
+                                            "Should modified animal products be labeled?",
+                                            "What are long-term health effects?"
+                                        ],
+                                        "current_consensus": "Breeding-based changes widely accepted, gene editing more controversial"
+                                    },
+                                    {
+                                        "category": "Environmental Impact",
+                                        "considerations": [
+                                            "Could modified animals escape and affect wild populations?",
+                                            "Do modifications reduce environmental footprint?",
+                                            "How do we maintain genetic diversity?"
+                                        ],
+                                        "current_consensus": "Benefits must clearly outweigh risks"
+                                    }
+                                ],
+                                "future_directions": [
+                                    "Precision gene editing for minimal, targeted improvements",
+                                    "Combination approaches using breeding + technology",
+                                    "Real-time monitoring systems for animal comfort",
+                                    "Development of reversible genetic modifications",
+                                    "Integration with climate-controlled housing systems"
+                                ]
+                            }
+                        }
+                    ],
+                    "quiz": [
+                        {
+                            "question": "Which physiological mechanism is most energy-efficient for heat dissipation in mammals?",
+                            "options": [
+                                "Panting",
+                                "Sweating", 
+                                "Vasodilation",
+                                "Behavioral cooling"
+                            ],
+                            "correct": 2,
+                            "explanation": "Vasodilation increases blood flow to skin surface for heat dissipation with minimal energy cost, while panting and sweating require energy and water."
+                        },
+                        {
+                            "question": "What makes the SLICK gene particularly valuable for heat tolerance?",
+                            "options": [
+                                "It increases sweating rate",
+                                "It produces shorter hair coats",
+                                "It improves water retention",
+                                "It enhances protein stability"
+                            ],
+                            "correct": 1,
+                            "explanation": "The SLICK gene produces shorter hair coats that improve heat dissipation, providing a significant thermoregulatory advantage."
+                        }
+                    ],
+                    "additional_resources": [
+                        {
+                            "title": "Animal Thermoregulation - Physiology Textbook",
+                            "type": "academic_text",
+                            "description": "Detailed coverage of temperature regulation in mammals"
+                        },
+                        {
+                            "title": "FAO Climate Change and Livestock",
+                            "type": "policy_report",
+                            "description": "UN report on climate impacts and adaptation strategies for livestock"
+                        }
+                    ]
+                },
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": "5",
+                "title": "Ethical Considerations in Gene Editing",
+                "description": "Exploring the moral, social, and philosophical implications of genetic modifications",
+                "duration": "40 min",
+                "difficulty": "Intermediate",
+                "topics": ["Bioethics", "Genetic enhancement", "Social justice", "Risk assessment", "Regulatory frameworks"],
+                "content": {
+                    "overview": "Gene editing technology offers tremendous potential benefits but also raises profound ethical questions about human nature, equality, and the responsible use of powerful technologies. This lesson explores the key ethical frameworks and debates surrounding genetic modifications.",
+                    "learning_objectives": [
+                        "Understand major ethical frameworks for evaluating gene editing",
+                        "Analyze real-world ethical dilemmas in genetic modification",
+                        "Evaluate arguments for and against different applications",
+                        "Develop skills for ethical reasoning about emerging technologies",
+                        "Understand regulatory approaches to genetic modification"
+                    ],
+                    "sections": [
+                        {
+                            "id": 1,
+                            "title": "Ethical Frameworks for Gene Editing",
+                            "duration": "12 min",
+                            "type": "philosophical_analysis",
+                            "content": {
+                                "text": "Different ethical traditions provide varying perspectives on the acceptability of genetic modifications. Understanding these frameworks helps structure thinking about complex moral questions.",
+                                "ethical_frameworks": [
+                                    {
+                                        "framework": "Consequentialism/Utilitarianism",
+                                        "principle": "Actions are right if they produce the best overall outcomes",
+                                        "application_to_gene_editing": "Gene editing is ethical if benefits outweigh harms for all affected parties",
+                                        "strengths": ["Clear decision criteria", "Considers all stakeholders", "Flexible to situations"],
+                                        "weaknesses": ["Difficult to predict outcomes", "May justify harming minorities", "Challenges in measuring 'utility'"],
+                                        "example_reasoning": "Editing disease genes is justified because it reduces suffering and improves quality of life"
+                                    },
+                                    {
+                                        "framework": "Deontological Ethics",
+                                        "principle": "Some actions are right or wrong regardless of consequences",
+                                        "application_to_gene_editing": "Gene editing may violate fundamental duties like respect for human dignity",
+                                        "strengths": ["Protects fundamental rights", "Clear moral rules", "Respects human dignity"],
+                                        "weaknesses": ["May prohibit beneficial actions", "Conflicts between duties", "Inflexible to new situations"],
+                                        "example_reasoning": "Editing human embryos is wrong because it treats future people as means to an end"
+                                    },
+                                    {
+                                        "framework": "Virtue Ethics",
+                                        "principle": "Focus on character traits and what virtuous people would do",
+                                        "application_to_gene_editing": "Gene editing should reflect virtues like compassion, prudence, and justice",
+                                        "strengths": ["Considers moral character", "Flexible guidance", "Emphasizes human flourishing"],
+                                        "weaknesses": ["Subjective virtues", "Cultural variation", "Less specific guidance"],
+                                        "example_reasoning": "A compassionate person would use gene editing to prevent genetic diseases"
+                                    },
+                                    {
+                                        "framework": "Principlism",
+                                        "principle": "Balance four key principles: autonomy, beneficence, non-maleficence, justice",
+                                        "application_to_gene_editing": "Genetic modifications must respect choice, help people, avoid harm, and be fairly distributed",
+                                        "strengths": ["Practical framework", "Widely accepted", "Balances multiple concerns"],
+                                        "weaknesses": ["Principles may conflict", "Requires judgment calls", "Cultural assumptions"],
+                                        "example_reasoning": "Gene therapy respects autonomy (patient choice), is beneficent (treats disease), minimizes harm, and should be accessible to all"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "Therapeutic vs Enhancement Debate",
+                            "duration": "10 min",
+                            "type": "ethical_analysis",
+                            "content": {
+                                "text": "One of the central debates in gene editing ethics is the distinction between therapeutic applications (treating disease) and enhancement applications (improving normal traits).",
+                                "therapeutic_applications": {
+                                    "definition": "Using gene editing to treat or prevent genetic diseases",
+                                    "examples": ["Sickle cell disease treatment", "Huntington's disease prevention", "Cystic fibrosis correction"],
+                                    "ethical_arguments_for": [
+                                        "Relieves suffering and saves lives",
+                                        "Restores normal function rather than enhancing",
+                                        "Similar to accepted medical treatments",
+                                        "Addresses clear medical needs"
+                                    ],
+                                    "ethical_concerns": [
+                                        "Defining 'disease' vs 'normal variation'",
+                                        "Potential unknown long-term effects",
+                                        "Access and cost considerations",
+                                        "Slippery slope to enhancement"
+                                    ],
+                                    "current_consensus": "Generally accepted with appropriate safety measures"
+                                },
+                                "enhancement_applications": {
+                                    "definition": "Using gene editing to improve normal human traits beyond typical ranges",
+                                    "examples": ["Enhanced intelligence", "Improved athletic performance", "Aesthetic modifications", "Extended lifespan"],
+                                    "ethical_arguments_for": [
+                                        "Individual autonomy and choice",
+                                        "Could reduce suffering from limitations",
+                                        "Natural extension of human self-improvement",
+                                        "Potential societal benefits"
+                                    ],
+                                    "ethical_concerns": [
+                                        "Creates inequality between enhanced/unenhanced",
+                                        "Pressure to enhance to remain competitive",
+                                        "Unknown risks of modifications",
+                                        "Changes human nature in concerning ways",
+                                        "Justice concerns about access"
+                                    ],
+                                    "current_consensus": "Highly controversial, not currently permitted in humans"
+                                },
+                                "gray_areas": [
+                                    {
+                                        "scenario": "Preventing genetic predisposition to heart disease",
+                                        "therapy_argument": "Prevents serious medical condition",
+                                        "enhancement_argument": "Goes beyond treating active disease",
+                                        "consensus": "Leaning toward therapeutic"
+                                    },
+                                    {
+                                        "scenario": "Editing for increased heat tolerance in climate change",
+                                        "therapy_argument": "Prevents heat-related illness and death",
+                                        "enhancement_argument": "Adds capability beyond normal human range",
+                                        "consensus": "Highly debated"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "title": "Justice and Access Issues",
+                            "duration": "10 min",
+                            "type": "social_ethics",
+                            "content": {
+                                "text": "Gene editing raises important questions about fairness, equality, and social justice, particularly regarding who has access to genetic modifications and their broader social impacts.",
+                                "access_challenges": [
+                                    {
+                                        "challenge": "Economic Barriers",
+                                        "description": "High costs may limit access to wealthy individuals/countries",
+                                        "implications": [
+                                            "Could worsen existing health disparities",
+                                            "Genetic 'haves' and 'have-nots' emerge",
+                                            "International competitiveness issues"
+                                        ],
+                                        "potential_solutions": [
+                                            "Public funding for genetic therapies",
+                                            "International cooperation and sharing",
+                                            "Technology development to reduce costs"
+                                        ]
+                                    },
+                                    {
+                                        "challenge": "Geographic Disparities", 
+                                        "description": "Advanced healthcare infrastructure required for gene editing",
+                                        "implications": [
+                                            "Rural and developing regions left behind",
+                                            "Brain drain as people seek genetic treatments",
+                                            "Global inequality in human capabilities"
+                                        ],
+                                        "potential_solutions": [
+                                            "Technology transfer programs",
+                                            "Mobile genetic therapy units",
+                                            "Training programs for healthcare workers"
+                                        ]
+                                    },
+                                    {
+                                        "challenge": "Cultural and Religious Objections",
+                                        "description": "Some groups may refuse genetic modifications for ethical/religious reasons",
+                                        "implications": [
+                                            "Self-imposed exclusion from benefits",
+                                            "Potential discrimination against unmodified individuals",
+                                            "Preserving cultural diversity vs promoting health"
+                                        ],
+                                        "potential_solutions": [
+                                            "Respect for diverse viewpoints",
+                                            "Alternative treatment options",
+                                            "Education and dialogue programs"
+                                        ]
+                                    }
+                                ],
+                                "justice_considerations": [
+                                    {
+                                        "principle": "Distributive Justice",
+                                        "question": "How should genetic modifications be distributed in society?",
+                                        "approaches": [
+                                            "Equal access for all (egalitarian)",
+                                            "Based on medical need (utilitarian)",
+                                            "Market-based distribution (libertarian)",
+                                            "Priority to worst-off (difference principle)"
+                                        ]
+                                    },
+                                    {
+                                        "principle": "Intergenerational Justice",
+                                        "question": "What do we owe to future generations?",
+                                        "considerations": [
+                                            "Obligation to prevent genetic diseases",
+                                            "Right to an unmodified genetic heritage",
+                                            "Environmental vs genetic solutions to problems",
+                                            "Preserving human genetic diversity"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "title": "Governance and Regulation",
+                            "duration": "8 min",
+                            "type": "policy_analysis", 
+                            "content": {
+                                "text": "Effective governance of gene editing requires balancing innovation with safety, public input with scientific expertise, and national interests with global coordination.",
+                                "regulatory_approaches": [
+                                    {
+                                        "country": "United States",
+                                        "approach": "FDA regulation with Congressional funding restrictions",
+                                        "key_features": [
+                                            "No federal funding for heritable human genome editing",
+                                            "FDA oversight of clinical trials",
+                                            "State-level variation in policies"
+                                        ],
+                                        "strengths": ["Precautionary approach", "Democratic input"],
+                                        "weaknesses": ["Inconsistent policies", "May drive research overseas"]
+                                    },
+                                    {
+                                        "country": "United Kingdom",
+                                        "approach": "Specialized regulatory body (HFEA) with licensed oversight",
+                                        "key_features": [
+                                            "Human Fertilisation and Embryology Authority oversight",
+                                            "Case-by-case licensing of research",
+                                            "Public engagement in policy development"
+                                        ],
+                                        "strengths": ["Expert oversight", "Flexible framework"],
+                                        "weaknesses": ["Complex approval process", "Resource intensive"]
+                                    },
+                                    {
+                                        "country": "China",
+                                        "approach": "Government oversight with significant research investment",
+                                        "key_features": [
+                                            "National Health Commission regulation",
+                                            "Major government funding for research",
+                                            "Recent strengthening of oversight after controversies"
+                                        ],
+                                        "strengths": ["Rapid advancement", "Coordinated approach"],
+                                        "weaknesses": ["Past oversight failures", "Limited public input"]
+                                    }
+                                ],
+                                "international_coordination": [
+                                    {
+                                        "organization": "World Health Organization",
+                                        "role": "Developing global standards and recommendations",
+                                        "achievements": ["Expert advisory committee", "Global registry of research"]
+                                    },
+                                    {
+                                        "organization": "International Summit on Human Gene Editing",
+                                        "role": "Bringing together scientists and ethicists globally",
+                                        "achievements": ["Consensus statements", "Ongoing dialogue"]
+                                    }
+                                ],
+                                "governance_challenges": [
+                                    "Keeping pace with rapidly advancing technology",
+                                    "Balancing innovation with precaution",
+                                    "Preventing 'regulatory arbitrage' between countries",
+                                    "Including diverse voices in decision-making",
+                                    "Addressing enforcement and compliance"
+                                ]
+                            }
+                        }
+                    ],
+                    "quiz": [
+                        {
+                            "question": "According to principlism, which ethical principles must be balanced in gene editing decisions?",
+                            "options": [
+                                "Autonomy, beneficence, non-maleficence, justice",
+                                "Rights, duties, consequences, virtues",
+                                "Safety, efficacy, access, privacy",
+                                "Individual, family, society, species"
+                            ],
+                            "correct": 0,
+                            "explanation": "Principlism balances four key principles: respect for autonomy (individual choice), beneficence (doing good), non-maleficence (avoiding harm), and justice (fairness)."
+                        },
+                        {
+                            "question": "What is the main ethical concern about genetic enhancement applications?",
+                            "options": [
+                                "They are more technically difficult",
+                                "They could increase social inequality",
+                                "They cost more than therapy",
+                                "They require more research"
+                            ],
+                            "correct": 1,
+                            "explanation": "The primary ethical concern about genetic enhancement is that it could create or worsen social inequalities between those who can access enhancements and those who cannot."
+                        }
+                    ],
+                    "additional_resources": [
+                        {
+                            "title": "Nuffield Council on Bioethics - Genome Editing",
+                            "type": "policy_report",
+                            "description": "Comprehensive ethical analysis of human genome editing"
+                        },
+                        {
+                            "title": "UNESCO Universal Declaration on the Human Genome",
+                            "type": "international_declaration",
+                            "description": "International principles for genetic research and applications"
+                        }
                     ]
                 },
                 "created_at": datetime.utcnow()
             }
         ]
-        await db.lessons.insert_many(sample_lessons)
+        await db.lessons.insert_many(comprehensive_lessons)
         
         # Add sample simulations
         sample_simulations = [

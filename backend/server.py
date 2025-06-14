@@ -79,6 +79,25 @@ class UserLessonProgress(BaseModel):
     completed_at: Optional[datetime] = None
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
+class ClimateCondition(BaseModel):
+    type: str  # "drought", "flood", "heatwave", "cold_snap", "salinity"
+    severity: str  # "mild", "moderate", "severe", "extreme"
+    duration: str  # "short", "medium", "long", "permanent"
+    description: str
+
+class PopulationTrait(BaseModel):
+    trait_name: str  # "weak_lungs", "low_melanin", "low_immunity", "heat_sensitivity", "cold_sensitivity"
+    severity: str  # "mild", "moderate", "severe"
+    affected_percentage: float  # 0-100
+    description: str
+
+class GeneEditingStrategy(BaseModel):
+    strategy_type: str  # "CRISPR", "GMO_crops", "synthetic_enzymes", "gene_therapy", "selective_breeding"
+    target_genes: List[str]
+    approach: str  # "enhancement", "suppression", "modification", "insertion"
+    success_rate: float  # 0-100
+    description: str
+
 class Simulation(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
@@ -87,6 +106,11 @@ class Simulation(BaseModel):
     genes: List[str]
     max_level: int
     description: str
+    # New fields for custom simulations
+    climate_condition: Optional[ClimateCondition] = None
+    population_traits: List[PopulationTrait] = []
+    gene_editing_strategies: List[GeneEditingStrategy] = []
+    is_custom: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class SimulationCreate(BaseModel):
@@ -96,6 +120,11 @@ class SimulationCreate(BaseModel):
     genes: List[str]
     max_level: int
     description: str
+    # New optional fields for custom simulations
+    climate_condition: Optional[ClimateCondition] = None
+    population_traits: List[PopulationTrait] = []
+    gene_editing_strategies: List[GeneEditingStrategy] = []
+    is_custom: bool = False
 
 class UserSimulation(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))

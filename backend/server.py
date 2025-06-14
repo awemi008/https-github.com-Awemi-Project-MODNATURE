@@ -372,6 +372,327 @@ async def create_simulation(simulation_data: SimulationCreate):
     await db.simulations.insert_one(simulation.dict())
     return simulation
 
+# New endpoints for custom simulation creation
+@api_router.get("/simulations/options/climate-conditions")
+async def get_climate_conditions():
+    """Get available climate conditions for simulation creation"""
+    return [
+        {
+            "type": "drought",
+            "name": "Drought",
+            "description": "Extended periods of below-normal precipitation causing water scarcity",
+            "severity_options": [
+                {"level": "mild", "description": "10-20% below normal rainfall"},
+                {"level": "moderate", "description": "20-40% below normal rainfall"},
+                {"level": "severe", "description": "40-60% below normal rainfall"},
+                {"level": "extreme", "description": "60%+ below normal rainfall"}
+            ]
+        },
+        {
+            "type": "flood",
+            "name": "Flood",
+            "description": "Excessive water causing waterlogged conditions and soil erosion",
+            "severity_options": [
+                {"level": "mild", "description": "Minor flooding with good drainage"},
+                {"level": "moderate", "description": "Significant flooding affecting root systems"},
+                {"level": "severe", "description": "Major flooding with soil displacement"},
+                {"level": "extreme", "description": "Catastrophic flooding destroying ecosystems"}
+            ]
+        },
+        {
+            "type": "heatwave",
+            "name": "Heatwave",
+            "description": "Prolonged periods of excessively hot weather",
+            "severity_options": [
+                {"level": "mild", "description": "2-5°C above normal temperatures"},
+                {"level": "moderate", "description": "5-8°C above normal temperatures"},
+                {"level": "severe", "description": "8-12°C above normal temperatures"},
+                {"level": "extreme", "description": "12°C+ above normal temperatures"}
+            ]
+        },
+        {
+            "type": "cold_snap",
+            "name": "Cold Snap",
+            "description": "Sudden drop in temperature causing frost damage",
+            "severity_options": [
+                {"level": "mild", "description": "Light frost conditions"},
+                {"level": "moderate", "description": "Hard frost with ice formation"},
+                {"level": "severe", "description": "Deep freeze affecting plant tissues"},
+                {"level": "extreme", "description": "Arctic conditions causing cell damage"}
+            ]
+        },
+        {
+            "type": "salinity",
+            "name": "Soil Salinity",
+            "description": "High salt concentration in soil affecting plant growth",
+            "severity_options": [
+                {"level": "mild", "description": "Slightly elevated salt levels"},
+                {"level": "moderate", "description": "Moderate salt stress affecting growth"},
+                {"level": "severe", "description": "High salinity causing plant stress"},
+                {"level": "extreme", "description": "Extreme salinity preventing growth"}
+            ]
+        }
+    ]
+
+@api_router.get("/simulations/options/population-traits")
+async def get_population_traits():
+    """Get available population traits for simulation creation"""
+    return [
+        {
+            "trait_name": "weak_lungs",
+            "name": "Respiratory Weakness",
+            "description": "Reduced lung capacity and respiratory efficiency",
+            "organism_types": ["humans", "mammals"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly reduced lung capacity (10-20%)"},
+                {"level": "moderate", "description": "Moderately reduced lung capacity (20-40%)"},
+                {"level": "severe", "description": "Severely reduced lung capacity (40%+)"}
+            ]
+        },
+        {
+            "trait_name": "low_melanin",
+            "name": "Reduced Melanin Production",
+            "description": "Decreased melanin production affecting UV protection",
+            "organism_types": ["humans", "mammals"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly reduced melanin (fair skin)"},
+                {"level": "moderate", "description": "Moderately reduced melanin (very fair skin)"},
+                {"level": "severe", "description": "Severely reduced melanin (albinism-like)"}
+            ]
+        },
+        {
+            "trait_name": "low_immunity",
+            "name": "Compromised Immune System",
+            "description": "Weakened immune response to environmental stressors",
+            "organism_types": ["humans", "mammals", "plants"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly weakened immune response"},
+                {"level": "moderate", "description": "Moderately compromised immunity"},
+                {"level": "severe", "description": "Severely compromised immune system"}
+            ]
+        },
+        {
+            "trait_name": "heat_sensitivity",
+            "name": "Heat Sensitivity",
+            "description": "Reduced ability to regulate body temperature in heat",
+            "organism_types": ["all"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly reduced heat tolerance"},
+                {"level": "moderate", "description": "Moderately reduced heat tolerance"},
+                {"level": "severe", "description": "Severely reduced heat tolerance"}
+            ]
+        },
+        {
+            "trait_name": "cold_sensitivity",
+            "name": "Cold Sensitivity",
+            "description": "Reduced ability to maintain function in cold conditions",
+            "organism_types": ["all"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly reduced cold tolerance"},
+                {"level": "moderate", "description": "Moderately reduced cold tolerance"},
+                {"level": "severe", "description": "Severely reduced cold tolerance"}
+            ]
+        },
+        {
+            "trait_name": "salt_sensitivity",
+            "name": "Salt Sensitivity",
+            "description": "Poor tolerance to high salinity conditions",
+            "organism_types": ["plants", "crops"],
+            "severity_options": [
+                {"level": "mild", "description": "Slightly reduced salt tolerance"},
+                {"level": "moderate", "description": "Moderately reduced salt tolerance"},
+                {"level": "severe", "description": "Severely reduced salt tolerance"}
+            ]
+        }
+    ]
+
+@api_router.get("/simulations/options/gene-editing-strategies")
+async def get_gene_editing_strategies():
+    """Get available gene editing strategies for simulation creation"""
+    return [
+        {
+            "strategy_type": "CRISPR",
+            "name": "CRISPR-Cas9 Gene Editing",
+            "description": "Precise DNA editing using CRISPR-Cas9 technology",
+            "approaches": [
+                {"type": "enhancement", "description": "Enhance existing gene expression"},
+                {"type": "suppression", "description": "Reduce or silence gene expression"},
+                {"type": "modification", "description": "Modify existing gene sequences"},
+                {"type": "insertion", "description": "Insert new genetic material"}
+            ],
+            "target_applications": ["humans", "animals", "plants"],
+            "success_rate_range": [70, 95],
+            "common_genes": ["HSP70", "DREB2", "PRLR", "ABA1", "LEA3", "SOD1"]
+        },
+        {
+            "strategy_type": "GMO_crops",
+            "name": "GMO Crop Development",
+            "description": "Creating genetically modified crops with enhanced traits",
+            "approaches": [
+                {"type": "enhancement", "description": "Enhance crop yield and nutrition"},
+                {"type": "insertion", "description": "Insert genes from other species"},
+                {"type": "modification", "description": "Modify existing crop genetics"}
+            ],
+            "target_applications": ["crops", "plants"],
+            "success_rate_range": [60, 85],
+            "common_genes": ["Bt", "CP4", "BADH", "SPS", "P5CS", "DREB1A"]
+        },
+        {
+            "strategy_type": "synthetic_enzymes",
+            "name": "Synthetic Enzyme Engineering",
+            "description": "Design artificial enzymes for specific functions",
+            "approaches": [
+                {"type": "enhancement", "description": "Enhance metabolic pathways"},
+                {"type": "insertion", "description": "Add new enzymatic functions"},
+                {"type": "modification", "description": "Modify existing enzyme activity"}
+            ],
+            "target_applications": ["all"],
+            "success_rate_range": [50, 80],
+            "common_genes": ["CAT", "APX", "GST", "POX", "PAL", "CHS"]
+        },
+        {
+            "strategy_type": "gene_therapy",
+            "name": "Gene Therapy",
+            "description": "Therapeutic delivery of genetic material to treat conditions",
+            "approaches": [
+                {"type": "enhancement", "description": "Enhance cellular functions"},
+                {"type": "insertion", "description": "Insert therapeutic genes"},
+                {"type": "modification", "description": "Correct genetic defects"}
+            ],
+            "target_applications": ["humans", "animals"],
+            "success_rate_range": [40, 75],
+            "common_genes": ["CFTR", "ADA", "p53", "VEGF", "IGF1", "BDNF"]
+        },
+        {
+            "strategy_type": "selective_breeding",
+            "name": "Advanced Selective Breeding",
+            "description": "Accelerated breeding programs using genetic markers",
+            "approaches": [
+                {"type": "enhancement", "description": "Select for enhanced traits"},
+                {"type": "modification", "description": "Combine beneficial alleles"}
+            ],
+            "target_applications": ["animals", "plants"],
+            "success_rate_range": [80, 95],
+            "common_genes": ["QTL markers", "SNP markers", "Breeding indices"]
+        }
+    ]
+
+@api_router.post("/simulations/run-custom")
+async def run_custom_simulation(
+    user_id: str,
+    simulation_name: str,
+    organism: str,
+    climate_condition: dict,
+    population_traits: List[dict],
+    gene_editing_strategies: List[dict]
+):
+    """Run a custom simulation with specified parameters"""
+    
+    # Create custom simulation
+    custom_sim = Simulation(
+        name=simulation_name,
+        organism=organism,
+        target_trait=f"Adaptation to {climate_condition.get('type', 'environmental stress')}",
+        genes=[gene for strategy in gene_editing_strategies for gene in strategy.get('target_genes', [])],
+        max_level=5,
+        description=f"Custom simulation for {organism} adaptation to {climate_condition.get('type')} conditions",
+        climate_condition=ClimateCondition(**climate_condition),
+        population_traits=[PopulationTrait(**trait) for trait in population_traits],
+        gene_editing_strategies=[GeneEditingStrategy(**strategy) for strategy in gene_editing_strategies],
+        is_custom=True
+    )
+    
+    # Save simulation
+    await db.simulations.insert_one(custom_sim.dict())
+    
+    # Calculate simulation results based on parameters
+    base_success_rate = 50.0
+    
+    # Adjust success rate based on climate severity
+    climate_severity_impact = {
+        "mild": 0.9, "moderate": 0.7, "severe": 0.5, "extreme": 0.3
+    }
+    climate_multiplier = climate_severity_impact.get(climate_condition.get('severity'), 0.7)
+    
+    # Adjust based on population trait severity
+    trait_impact = 1.0
+    for trait in population_traits:
+        trait_severity_impact = {
+            "mild": 0.95, "moderate": 0.85, "severe": 0.7
+        }
+        trait_impact *= trait_severity_impact.get(trait.get('severity'), 0.85)
+    
+    # Adjust based on gene editing strategy success rates
+    strategy_success = sum([
+        strategy.get('success_rate', 70) for strategy in gene_editing_strategies
+    ]) / len(gene_editing_strategies) if gene_editing_strategies else 70
+    
+    # Calculate final metrics
+    adaptation_success = (base_success_rate * climate_multiplier * trait_impact * (strategy_success / 100)) > 40
+    final_survival_rate = min(95, max(10, base_success_rate * climate_multiplier * trait_impact))
+    resistance_level = min(100, max(0, strategy_success * climate_multiplier))
+    population_health = min(100, max(20, 80 * trait_impact))
+    
+    # Create user simulation record
+    user_sim = UserSimulation(
+        user_id=user_id,
+        simulation_id=custom_sim.id,
+        survival_rate=final_survival_rate,
+        adaptation_success=adaptation_success,
+        resistance_level=resistance_level,
+        population_health=population_health,
+        environmental_impact=min(100, max(0, 100 - (final_survival_rate * 0.8))),
+        status="Completed",
+        simulation_results={
+            "climate_adaptation": resistance_level,
+            "population_survival": final_survival_rate,
+            "trait_improvement": population_health,
+            "overall_success": adaptation_success,
+            "recommendations": generate_simulation_recommendations(
+                climate_condition, population_traits, gene_editing_strategies, adaptation_success
+            )
+        }
+    )
+    
+    await db.user_simulations.insert_one(user_sim.dict())
+    
+    return {
+        "simulation_id": custom_sim.id,
+        "user_simulation_id": user_sim.id,
+        "results": {
+            "adaptation_successful": adaptation_success,
+            "survival_rate": round(final_survival_rate, 1),
+            "resistance_level": round(resistance_level, 1),
+            "population_health": round(population_health, 1),
+            "environmental_impact": round(user_sim.environmental_impact, 1),
+            "detailed_results": user_sim.simulation_results
+        }
+    }
+
+def generate_simulation_recommendations(climate_condition, population_traits, strategies, success):
+    """Generate recommendations based on simulation results"""
+    recommendations = []
+    
+    if success:
+        recommendations.append("✅ Genetic modifications successfully improved adaptation")
+        recommendations.append("🧬 Current gene editing strategies are effective")
+        recommendations.append("📈 Population shows strong resilience to environmental stress")
+    else:
+        recommendations.append("⚠️ Additional genetic modifications may be needed")
+        recommendations.append("🔬 Consider combining multiple gene editing approaches")
+        recommendations.append("📊 Monitor population closely for stress indicators")
+    
+    # Climate-specific recommendations
+    climate_type = climate_condition.get('type')
+    if climate_type == 'drought':
+        recommendations.append("💧 Focus on water retention and root development genes")
+    elif climate_type == 'heatwave':
+        recommendations.append("🌡️ Enhance heat shock protein expression")
+    elif climate_type == 'flood':
+        recommendations.append("🌊 Improve anaerobic respiration pathways")
+    
+    return recommendations
+
 @api_router.get("/users/{user_id}/simulations")
 async def get_user_simulations(user_id: str):
     user_sims = await db.user_simulations.find({"user_id": user_id}).to_list(1000)

@@ -577,30 +577,34 @@ async def get_gene_editing_strategies():
         }
     ]
 
+class CustomSimulationRequest(BaseModel):
+    user_id: str
+    simulation_name: str
+    organism: str
+    climate_condition: Dict[str, Any]
+    population_traits: List[Dict[str, Any]]
+    gene_editing_strategies: List[Dict[str, Any]]
+
 @api_router.post("/simulations/run-custom")
-async def run_custom_simulation(
-    user_id: str,
-    simulation_name: str,
-    organism: str,
-    climate_condition: dict,
-    population_traits: List[dict],
-    gene_editing_strategies: List[dict]
-):
+async def run_custom_simulation(request: CustomSimulationRequest):
     """Run a custom simulation with specified parameters"""
     
     # Create custom simulation
-    custom_sim = Simulation(
-        name=simulation_name,
-        organism=organism,
-        target_trait=f"Adaptation to {climate_condition.get('type', 'environmental stress')}",
-        genes=[gene for strategy in gene_editing_strategies for gene in strategy.get('target_genes', [])],
-        max_level=5,
-        description=f"Custom simulation for {organism} adaptation to {climate_condition.get('type')} conditions",
-        climate_condition=ClimateCondition(**climate_condition),
-        population_traits=[PopulationTrait(**trait) for trait in population_traits],
-        gene_editing_strategies=[GeneEditingStrategy(**strategy) for strategy in gene_editing_strategies],
-        is_custom=True
-    )
+    try:
+        custom_sim = Simulation(
+            name=request.simulation_name,
+            organism=request.organism,
+            target_trait=f"Adaptation to {request.climate_condition.get('type', 'environmental stress')}",
+            genes=[gene for strategy in request.gene_editing_strategies for gene in strategy.get('target_genes', [])],
+            max_level=5,
+            description=f"Custom simulation for {request.organism} adaptation to {request.climate_condition.get('type')} conditions",
+            climate_condition=ClimateCondition(**request.climate_condition) if request.climate_condition else None,
+            population_traits=[PopulationTrait(**trait) for trait in request.population_traits],
+            gene_editing_strategies=[GeneEditingStrategy(**strategy) for strategy in request.gene_editing_strategies],
+            is_custom=True
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid simulation data: {str(e)}")
     
     # Save simulation
     await db.simulations.insert_one(custom_sim.dict())
@@ -612,11 +616,11 @@ async def run_custom_simulation(
     climate_severity_impact = {
         "mild": 0.9, "moderate": 0.7, "severe": 0.5, "extreme": 0.3
     }
-    climate_multiplier = climate_severity_impact.get(climate_condition.get('severity'), 0.7)
+    climate_multiplier = climate_severity_impact.get(request.climate_condition.get('severity'), 0.7)
     
     # Adjust based on population trait severity
     trait_impact = 1.0
-    for trait in population_traits:
+    for trait in request.population_traits:
         trait_severity_impact = {
             "mild": 0.95, "moderate": 0.85, "severe": 0.7
         }
@@ -624,8 +628,8 @@ async def run_custom_simulation(
     
     # Adjust based on gene editing strategy success rates
     strategy_success = sum([
-        strategy.get('success_rate', 70) for strategy in gene_editing_strategies
-    ]) / len(gene_editing_strategies) if gene_editing_strategies else 70
+        strategy.get('success_rate', 70) for strategy in request.gene_editing_strategies
+    ]) / len(request.gene_editing_strategies) if request.gene_editing_strategies else 70
     
     # Calculate final metrics
     adaptation_success = (base_success_rate * climate_multiplier * trait_impact * (strategy_success / 100)) > 40
@@ -635,7 +639,7 @@ async def run_custom_simulation(
     
     # Create user simulation record
     user_sim = UserSimulation(
-        user_id=user_id,
+        user_id=request.user_id,
         simulation_id=custom_sim.id,
         survival_rate=final_survival_rate,
         adaptation_success=adaptation_success,
@@ -649,7 +653,7 @@ async def run_custom_simulation(
             "trait_improvement": population_health,
             "overall_success": adaptation_success,
             "recommendations": generate_simulation_recommendations(
-                climate_condition, population_traits, gene_editing_strategies, adaptation_success
+                request.climate_condition, request.population_traits, request.gene_editing_strategies, adaptation_success
             )
         }
     )

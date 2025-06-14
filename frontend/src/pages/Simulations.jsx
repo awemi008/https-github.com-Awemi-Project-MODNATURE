@@ -132,7 +132,7 @@ const Simulations = () => {
             </div>
             <Button 
               className="mt-4 sm:mt-0 bg-white text-blue-600 hover:bg-blue-50 font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-              onClick={() => toast.success("Simulation designer coming soon! 🚀")}
+              onClick={() => setIsWizardOpen(true)}
             >
               <FlaskConical className="h-5 w-5 mr-2" />
               New Simulation

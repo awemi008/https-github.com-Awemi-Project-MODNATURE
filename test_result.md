@@ -413,6 +413,7 @@ test_plan:
     - "Lesson Management & Progress Tracking"
     - "Simulation System Backend"
     - "ChatGPT-4o AI Integration"
+    - "Custom Simulation System"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"

@@ -152,6 +152,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "Lesson management system is working correctly. Get all lessons, get specific lesson, and update lesson progress endpoints are functioning properly. Sample lesson data is properly initialized."
+      - working: true
+        agent: "testing"
+        comment: "Enhanced lesson system with comprehensive educational content is working correctly. All 5 lessons now contain rich educational content with scientific accuracy, multiple content sections of different types, learning objectives, key points, quiz questions, and additional resources. Each lesson has a detailed overview, at least 4 content sections, quiz questions with explanations, and additional resources for further learning."
 
   - task: "Simulation System Backend"
     implemented: true

@@ -28,6 +28,7 @@ const Simulations = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [organismFilter, setOrganismFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   const filteredSimulations = simulations.filter(sim => {
     const matchesSearch = sim.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

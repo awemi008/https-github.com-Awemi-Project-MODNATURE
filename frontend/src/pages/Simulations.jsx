@@ -288,6 +288,12 @@ const Simulations = () => {
           </CardContent>
         </Card>
       )}
+
+      {/* New Simulation Wizard */}
+      <NewSimulationWizard 
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+      />
     </div>
   );
 };

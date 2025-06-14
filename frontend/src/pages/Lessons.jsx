@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -17,12 +17,43 @@ import {
   ChevronRight,
   Play
 } from "lucide-react";
-import { lessons } from "../data/mockData";
 
 const Lessons = () => {
+  const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+
+  useEffect(() => {
+    fetchLessons();
+  }, []);
+
+  const fetchLessons = async () => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${backendUrl}/api/lessons`);
+      
+      if (response.ok) {
+        const lessonsData = await response.json();
+        // Add mock progress data for demo purposes
+        const lessonsWithProgress = lessonsData.map((lesson, index) => ({
+          ...lesson,
+          progress: index === 0 ? 100 : index === 1 ? 100 : index === 2 ? 65 : 0,
+          completed: index < 2
+        }));
+        setLessons(lessonsWithProgress);
+      } else {
+        console.error("Failed to fetch lessons");
+        setLessons([]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch lessons:", error);
+      setLessons([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredLessons = lessons.filter(lesson => {
     const matchesSearch = lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -40,6 +71,14 @@ const Lessons = () => {
   const inProgressCount = lessons.filter(l => !l.completed && l.progress > 0).length;
   const totalLessons = lessons.length;
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin h-8 w-8 border-4 border-purple-600 border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -49,7 +88,7 @@ const Lessons = () => {
             Interactive Lessons
           </h1>
           <p className="text-lg text-gray-600 mt-2">
-            Master the fundamentals of gene editing and climate adaptation
+            Master the fundamentals of gene editing and climate adaptation with comprehensive, research-based content
           </p>
         </div>
 
@@ -175,7 +214,7 @@ const Lessons = () => {
             <CardContent className="space-y-4">
               {/* Topics */}
               <div className="flex flex-wrap gap-2">
-                {lesson.topics.map((topic, index) => (
+                {lesson.topics?.map((topic, index) => (
                   <Badge key={index} variant="outline" className="text-xs bg-gray-50">
                     {topic}
                   </Badge>

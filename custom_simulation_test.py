@@ -146,10 +146,15 @@ def test_run_custom_simulation():
     print("\n🔍 Testing Run Custom Simulation Endpoint")
     
     # Prepare test data as specified in the requirements
-    simulation_data = {
+    # The API expects these as query parameters, not JSON body
+    query_params = {
         "user_id": "test-user-123",
         "simulation_name": "Test Drought Adaptation",
-        "organism": "Wheat",
+        "organism": "Wheat"
+    }
+    
+    # Complex parameters need to be sent as JSON in the body
+    json_data = {
         "climate_condition": {
             "type": "drought", 
             "severity": "moderate", 
@@ -176,7 +181,11 @@ def test_run_custom_simulation():
     }
     
     try:
-        response = requests.post(f"{API_URL}/simulations/run-custom", json=simulation_data)
+        response = requests.post(
+            f"{API_URL}/simulations/run-custom", 
+            params=query_params,
+            json=json_data
+        )
         success = response.status_code == 200
         
         # Verify structure of returned data

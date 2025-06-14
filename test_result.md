@@ -213,20 +213,20 @@ backend:
         agent: "testing"
         comment: "Project management system is working correctly. Create project, update project, and get user projects endpoints are functioning properly."
 
-  - task: "Analytics & User Data API"
+  - task: "Custom Simulation System"
     implemented: true
     working: true
     file: "server.py"
     stuck_count: 0
-    priority: "medium"
+    priority: "high"
     needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Built comprehensive analytics endpoint aggregating user progress across all modules"
+        comment: "Implemented custom simulation system with climate conditions, population traits, and gene editing strategies options endpoints. Added run-custom endpoint for creating and running custom simulations."
       - working: true
         agent: "testing"
-        comment: "Analytics and user data API is working correctly. Get user analytics endpoint is functioning properly, aggregating data from lessons, simulations, ethical decisions, and projects."
+        comment: "All custom simulation endpoints are working correctly. GET /api/simulations/options/climate-conditions, GET /api/simulations/options/population-traits, and GET /api/simulations/options/gene-editing-strategies return proper data structures. POST /api/simulations/run-custom successfully creates and runs custom simulations with the provided parameters, returning adaptation success, survival rates, and recommendations."
 
   - task: "Database Models & Validation"
     implemented: true

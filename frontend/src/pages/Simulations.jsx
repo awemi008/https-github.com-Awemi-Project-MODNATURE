@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { simulations } from "../data/mockData";
 import { toast } from "sonner";
+import NewSimulationWizard from "../components/NewSimulationWizard";
 
 const Simulations = () => {
   const [searchTerm, setSearchTerm] = useState("");

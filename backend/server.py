@@ -135,6 +135,12 @@ class UserSimulation(BaseModel):
     yield_increase: float = 0.0
     gene_expression_levels: List[float] = []
     status: str = "Starting"
+    # Enhanced fields for custom simulations
+    adaptation_success: bool = False
+    resistance_level: float = 0.0
+    population_health: float = 0.0
+    environmental_impact: float = 0.0
+    simulation_results: Dict[str, Any] = {}
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
